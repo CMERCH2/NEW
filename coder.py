@@ -1,6 +1,12 @@
 import pygame
 pygame.init()
 
+def text_to_bits(text, encoding='utf-8', errors='surrogatepass'):
+    bits = bin(int.from_bytes(text.encode(encoding, errors), 'big'))[2:]
+    return bits.zfill(8 * ((len(bits) + 7) // 8))
+def text_from_bits(bits, encoding='utf-8', errors='surrogatepass'):
+    n = int(bits, 2)
+    return n.to_bytes((n.bit_length() + 7) // 8, 'big').decode(encoding, errors)
 
 def open_file():
     try:
@@ -62,10 +68,29 @@ def draw():
         pygame.display.update()
 
     pygame.quit()
+def counter(text):
+    slovar = [0]*128
+    for i in range(128):
+        bits = ''
+        b = i
+        print(i)
+        for j in range(8):
+            bits = str(b%2) + bits
+            b //= 2
+        print(bits)
+        symbol = text_from_bits(bits)
+        gg = text.count(symbol)
+        slovar[i] = gg
+    slovar[0] = 0
+    print(slovar)
+    return slovar
+
 
 def main():
     text = open_file()
-    draw()
+    slovar = counter(text)
+    
+    #draw()
 
 
 
