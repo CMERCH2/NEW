@@ -86,11 +86,35 @@ def counter(text):
     return slovar
 
 def tree(slovar):
+    def addsymbol(str, number):
+        vivod = ''
+        b = 0
+        if str == "1":
+            vivod = number + 'cc'
+            return vivod
+        elif str == '0':
+            vivod == number + 'oo'
+            return vivod
+        elif len(str) == 1:
+            return (str+number)
+        else:
+
+            for i in range(len(str)):
+
+                if str[i] not in "01":
+                    print(str[i])
+                    if str[i+1] not in "01":
+                        continue
+                    vivod += str[b:i+1] + number
+                    b = i+1
+            vivod += str[b:]
+            return vivod
+
     symbols = []
     symbols2 = []
     count = []
     count2 = []
-    
+
     for i in range(128):
         if slovar[i]!=0:
             bits = ''
@@ -108,17 +132,38 @@ def tree(slovar):
         z = count.index(a)
         count2.append(a)
         symbols2.append(symbols[z])
-        print(z)
         del count[z]
         symbols = symbols[:z] + symbols[z+1:]
 
+    kount = len(count2)
+
+    for i in range(kount-1):
+        symbols2[1] = addsymbol(symbols2[0], '0') + addsymbol(symbols2[1], '1')
+        symbols2 = symbols2[1:]
+        count2[1] = count2[0] + count2[1]
+        del count2[0]
+
+
+        count = count2
+        symbols = symbols2
+        count2 = []
+        symbols2 = []
+        for i in range(len(count)):
+            a = min(count)
+            z = count.index(a)
+            count2.append(a)
+            symbols2.append(symbols[z])
+            del count[z]
+            symbols = symbols[:z] + symbols[z+1:]
+        #print(symbols2, count2)
     print(symbols, count)
     print(symbols2, count2)
+    return symbols2
 
 def main():
     text = open_file()
     slovar = counter(text)
-    tree(slovar)
+    code = tree(slovar)
     #draw()
 
 
