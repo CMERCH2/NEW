@@ -1,4 +1,5 @@
 import pygame
+import pickle
 pygame.init()
 
 def text_to_bits(text, encoding='utf-8', errors='surrogatepass'):
@@ -158,12 +159,35 @@ def tree(slovar):
         #print(symbols2, count2)
     print(symbols, count)
     print(symbols2, count2)
-    return symbols2
+    symm = symbols2[0]
+    return symm
+def codir(code, text):
+    count = len(code)
+    lib = {}
+    for i in range(2, count):
+        if code[i] not in '01':
+            if code[i+1] not in "01":
+                continue
+            lib[code[i]] = 
+def otpravka(code):
+    f = open('FILENAME.bin','wb')
+
+    f.close()
+    with open('FILENAME.bin', "wb") as file:
+        pickle.dump(code, file)
+
+
+    with open('FILENAME.bin', "rb") as file:
+        name = pickle.load(file)
+
+        print("Имя:", name)
 
 def main():
     text = open_file()
     slovar = counter(text)
     code = tree(slovar)
+    end = codir(code, text)
+    otpravka(code)
     #draw()
 
 
