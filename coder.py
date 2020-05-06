@@ -85,11 +85,40 @@ def counter(text):
     print(slovar)
     return slovar
 
+def tree(slovar):
+    symbols = []
+    symbols2 = []
+    count = []
+    count2 = []
+    
+    for i in range(128):
+        if slovar[i]!=0:
+            bits = ''
+            b = i
+
+            for j in range(8):
+                bits = str(b%2) + bits
+                b //= 2
+            symbol = text_from_bits(bits)
+            symbols.append(symbol)
+            count.append(slovar[i])
+
+    for i in range(len(count)):
+        a = min(count)
+        z = count.index(a)
+        count2.append(a)
+        symbols2.append(symbols[z])
+        print(z)
+        del count[z]
+        symbols = symbols[:z] + symbols[z+1:]
+
+    print(symbols, count)
+    print(symbols2, count2)
 
 def main():
     text = open_file()
     slovar = counter(text)
-    
+    tree(slovar)
     #draw()
 
 
