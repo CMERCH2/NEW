@@ -16,7 +16,7 @@ def open_file():
         return full
     finally:
         file.close()
-
+"""
 def draw():
 
     win = pygame.display.set_mode((500, 500))
@@ -68,10 +68,10 @@ def draw():
 
         pygame.display.update()
 
-    pygame.quit()
+    pygame.quit()"""
 def counter(text):
     slovar = [0]*128
-    for i in range(128):
+    for i in range(10,128):
         bits = ''
         b = i
         #print(i)
@@ -80,10 +80,11 @@ def counter(text):
             b //= 2
         #print(bits)
         symbol = text_from_bits(bits)
+
         gg = text.count(symbol)
         slovar[i] = gg
     slovar[0] = 0
-    #print(slovar)
+    print(slovar)
     return slovar
 
 def tree(slovar):
@@ -127,9 +128,11 @@ def tree(slovar):
                 bits = str(b%2) + bits
                 b //= 2
             symbol = text_from_bits(bits)
-            symbols.append(symbol)
-            count.append(slovar[i])
 
+            symbols.append(symbol)
+
+            count.append(slovar[i])
+    print(symbols)
     for i in range(len(count)):
         a = min(count)
         z = count.index(a)
@@ -139,7 +142,7 @@ def tree(slovar):
         symbols = symbols[:z] + symbols[z+1:]
 
     kount = len(count2)
-    #print(symbols2)
+    print(symbols2)
     for i in range(kount-1):
         symbols2[1] = addsymbol(symbols2[0], '0') + addsymbol(symbols2[1], '1')
         #print(symbols2[1])
@@ -173,6 +176,7 @@ def codir(code, text):
     flag = 0
 
     for i in range(1, count):
+
         if code[i] not in '01':
             if code[i+1] not in "01":
                 flag = 1
@@ -193,10 +197,12 @@ def codir(code, text):
         opps += code[i]
 
     lib[j] = opps
-    #print(lib)
+    print(lib)
     vivod = ''
     for i in text:
-
+        
+        if i == '—' or i == '’':
+            continue
         vivod += lib[i]
     #print(vivod)
     return vivod
