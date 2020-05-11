@@ -74,28 +74,30 @@ def counter(text):
     for i in range(128):
         bits = ''
         b = i
-        print(i)
+        #print(i)
         for j in range(8):
             bits = str(b%2) + bits
             b //= 2
-        print(bits)
+        #print(bits)
         symbol = text_from_bits(bits)
         gg = text.count(symbol)
         slovar[i] = gg
     slovar[0] = 0
-    print(slovar)
+    #print(slovar)
     return slovar
 
 def tree(slovar):
     def addsymbol(str, number):
         vivod = ''
         b = 0
-        if str == "1":
-            vivod = number + 'cc'
-            return vivod
-        elif str == '0':
-            vivod == number + 'oo'
-            return vivod
+        if str in '01':
+            #print('fd')
+            if str == '1':
+                #print('fd')
+                vivod = 'cc' + number
+                return vivod
+            return ('ll' + number)
+
         elif len(str) == 1:
             return (str+number)
         else:
@@ -103,7 +105,7 @@ def tree(slovar):
             for i in range(len(str)):
 
                 if str[i] not in "01":
-                    print(str[i])
+                    #print(str[i])
                     if str[i+1] not in "01":
                         continue
                     vivod += str[b:i+1] + number
@@ -137,9 +139,10 @@ def tree(slovar):
         symbols = symbols[:z] + symbols[z+1:]
 
     kount = len(count2)
-
+    #print(symbols2)
     for i in range(kount-1):
         symbols2[1] = addsymbol(symbols2[0], '0') + addsymbol(symbols2[1], '1')
+        #print(symbols2[1])
         symbols2 = symbols2[1:]
         count2[1] = count2[0] + count2[1]
         del count2[0]
@@ -157,37 +160,61 @@ def tree(slovar):
             del count[z]
             symbols = symbols[:z] + symbols[z+1:]
         #print(symbols2, count2)
-    print(symbols, count)
-    print(symbols2, count2)
+    #print(symbols, count)
+    #print(symbols2, count2)
     symm = symbols2[0]
     return symm
+
 def codir(code, text):
     count = len(code)
     lib = {}
-    for i in range(2, count):
+    opps = ''
+    j = code[0]
+    flag = 0
+
+    for i in range(1, count):
         if code[i] not in '01':
             if code[i+1] not in "01":
+                flag = 1
                 continue
-            lib[code[i]] = 
-def otpravka(code):
-    f = open('FILENAME.bin','wb')
+            lib[j] = opps
+            opps = ''
+            if flag == 1:
+                if (code[i]+code[i-1])=='ll':
+                    j = '0'
+                    flag = 0
+                    continue
+                else:
+                    j = '1'
+                    flag = 0
+                    continue
+            j = code[i]
+            continue
+        opps += code[i]
 
-    f.close()
+    lib[j] = opps
+    #print(lib)
+    vivod = ''
+    for i in text:
+
+        vivod += lib[i]
+    #print(vivod)
+    return vivod
+
+def otpravka(code, text):
+
+    n = int(text, 2)
+    n.to_bytes((n.bit_length() + 7) // 8, 'big')
     with open('FILENAME.bin', "wb") as file:
         pickle.dump(code, file)
-
-
-    with open('FILENAME.bin', "rb") as file:
-        name = pickle.load(file)
-
-        print("Имя:", name)
+        pickle.dump(n, file)
 
 def main():
     text = open_file()
     slovar = counter(text)
     code = tree(slovar)
     end = codir(code, text)
-    otpravka(code)
+    otpravka(code, end)
     #draw()
 
 
