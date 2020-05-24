@@ -15,10 +15,11 @@ def decode(chislo, lib):
             #print(chislo[j:i])
             o = 1
         else:
-            print(lib[chislo[j:i]])
+            #print(lib[chislo[j:i]])
             vivod += lib[chislo[j:i]]
             j = i
-    print(chislo[j:i])
+    #print(chislo[j:i])
+    return(vivod)
 def priem():
     with open('FILENAME.bin', "rb") as file:
         lene = pickle.load(file)
@@ -53,7 +54,7 @@ def priem():
             continue
         opps += code[i]
 
-    lib[j] = opps
+    lib[opps] = j
     #print(lib)
     vivod = ''
     bstring = ''
@@ -72,17 +73,20 @@ def priem():
         m //= 2
     #print(len(chislo))
     chislo = "0"*(lene-len(chislo)) + chislo
-    decode(chislo, lib)
-
+    text = decode(chislo, lib)
+    return text
 
         #print(chislo[j:i])
+def viv(text):
+    f = open('text.txt', 'w')
+    f.write(text)
+    f.close()
 
-
-    print(vivod)
+    #print(vivod)
 def main():
-    priem()
-
-
+    text = priem()
+    print(text)
+    viv(text)
 
 
 

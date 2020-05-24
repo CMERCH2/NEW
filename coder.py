@@ -232,7 +232,7 @@ def codir(code, text):
     return vivod
 
 def otpravka(code, text):
-    print(text)
+    #print(text)
     lene = len(text)
     n = int(text, 2)
     n = n.to_bytes((n.bit_length() + 7) // 8, 'big')
