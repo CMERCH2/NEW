@@ -233,11 +233,11 @@ def codir(code, text):
 
 def otpravka(code, text):
     print(text)
-    len = len(text)
+    lene = len(text)
     n = int(text, 2)
     n = n.to_bytes((n.bit_length() + 7) // 8, 'big')
     with open('FILENAME.bin', "wb") as file:
-        pickle.dump(len, file)
+        pickle.dump(lene, file)
         pickle.dump(code, file)
         pickle.dump(n, file)
 
