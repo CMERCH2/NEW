@@ -18,7 +18,8 @@ def decode(chislo, lib):
             #print(lib[chislo[j:i]])
             vivod += lib[chislo[j:i]]
             j = i
-    #print(chislo[j:i])
+
+    vivod += lib[chislo[j:len(chislo)]]
     return(vivod)
 def priem():
     with open('FILENAME.bin', "rb") as file:
